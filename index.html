@@ -6,17 +6,23 @@
     
     <script>
         (function() {
-
-            var allowedDomain = "https://alain-mods.vercel.app/"; 
+            // --- CONFIGURATION DU DOMAINE AUTORISÉ ---
+            // Seul ce domaine (et localhost pour vos tests) pourra afficher le site
+            var allowedDomain = "alain-mods.vercel.app"; 
             
             var currentDomain = window.location.hostname;
             
-            if (currentDomain.indexOf(allowedDomain) === -1 && currentDomain !== "%%" && currentDomain !== "127.0.0.1") {
+            // Si le domaine actuel ne contient pas "alain-mods.vercel.app" 
+            // ET que ce n'est pas localhost (pour vos tests), on bloque tout.
+            if (currentDomain.indexOf(allowedDomain) === -1 && currentDomain !== "localhost" && currentDomain !== "127.0.0.1") {
                 
+                // 1. On force une page blanche via CSS
                 document.write('<style>body { background-color: white !important; color: black !important; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; font-family: sans-serif; text-align: center; } * { display: none !important; } body, body * { display: block !important; }</style>');
                 
-                document.write('<div><h1>⚠️ Contenu Protégé</h1><p>Ce code appartient à <strong>ALAIN MODS</strong>.</p><p>Accédez au site officiel ici : <br><a href="https://alain-mods.vercel.app/' + allowedDomain + '" style="color:blue; font-weight:bold; font-size:1.2rem;">' + allowedDomain + '</a></p></div>');
+                // 2. On affiche le message de redirection
+                document.write('<div><h1>⚠️ Contenu Protégé</h1><p>Ce code appartient à <strong>ALAIN MODS</strong>.</p><p>Accédez au site officiel ici : <br><a href="https://' + allowedDomain + '" style="color:blue; font-weight:bold; font-size:1.2rem;">' + allowedDomain + '</a></p></div>');
                 
+                // 3. On tue les scripts suivants pour empêcher le site de charger
                 window.stop();
                 throw new Error("Accès non autorisé : Domaine invalide.");
             }
@@ -30,9 +36,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-
+        /* --- VARIABLES CSS --- */
         :root {
-           
             --bg: #060709;
             --surface: #12141c;
             --primary: #6366f1;
@@ -47,7 +52,6 @@
             --whatsapp-dark: #128C7E;
         }
 
-      
         body.light-mode {
             --bg: #f0f2f5;
             --surface: #ffffff;
@@ -57,23 +61,20 @@
             --shadow: rgba(0,0,0,0.1);
         }
 
-
+        /* EMPÊCHER LA SÉLECTION (sauf inputs) */
         body {
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
-        }
-
-        * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-
-        body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
             overflow-x: hidden;
         }
+
+        * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
         nav {
             padding: 15px 5%;
@@ -96,7 +97,7 @@
         .nav-links a { color: var(--text-dim); text-decoration: none; margin-left: 20px; font-weight: 600; font-size: 0.9rem; cursor: pointer; }
         .nav-links a:hover, .nav-links a.active-link { color: var(--text); }
         
-        #theme-toggle { font-size: 1.1rem; padding: 8px; }
+        #theme-toggle { font-size: 1.1rem; padding: 8px; cursor: pointer; }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; min-height: 80vh; }
 
@@ -117,7 +118,7 @@
 
         .hero p { color: var(--text-dim); font-size: 1rem; max-width: 600px; margin: 0 auto 30px auto; }
 
-
+        /* --- STYLES PUBLICITÉS --- */
         .ad-space {
             margin: 20px auto;
             text-align: center;
@@ -130,6 +131,7 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            border: 1px dashed var(--glass);
         }
         .ad-label {
             display: block;
@@ -140,7 +142,7 @@
             letter-spacing: 1px;
         }
 
-
+        /* --- BARRE DE RECHERCHE --- */
         .search-box {
             position: relative;
             max-width: 500px;
@@ -157,7 +159,7 @@
             font-family: inherit;
             font-size: 1rem;
             box-shadow: 0 4px 20px var(--shadow);
-            -webkit-user-select: text;
+            -webkit-user-select: text; /* Autorise la sélection pour taper */
             user-select: text;
         }
         .search-input:focus { outline: none; border-color: var(--primary); }
@@ -173,7 +175,7 @@
             font-size: 1.1rem;
         }
 
-       
+        /* --- FILTRES --- */
         .categories {
             display: flex;
             justify-content: center;
@@ -241,7 +243,7 @@
         }
         .meta-item { display: flex; align-items: center; gap: 6px; }
 
-
+        /* --- BOUTON TÉLÉCHARGEMENT --- */
         .btn-download {
             background: var(--text);
             color: var(--bg);
@@ -355,17 +357,19 @@
         
         <div class="ad-space">
             <span class="ad-label">Sponsor</span>
-            <script>
-                atOptions = {
-                    'key' : '05cad368a4c6fd0a600b4675f170252a',
-                    'format' : 'iframe',
-                    'height' : 50,
-                    'width' : 320,
-                    'params' : {}
-                };
-            </script>
-            <script src="https://www.highperformanceformat.com/05cad368a4c6fd0a600b4675f170252a/invoke.js"></script>
+            <div style="display: inline-block;">
+                <script>
+                    atOptions = {
+                        'key' : '05cad368a4c6fd0a600b4675f170252a',
+                        'format' : 'iframe',
+                        'height' : 50,
+                        'width' : 320,
+                        'params' : {}
+                    };
+                </script>
+                <script src="https://www.highperformanceformat.com/05cad368a4c6fd0a600b4675f170252a/invoke.js"></script>
             </div>
+        </div>
 
         <p>Accès illimité aux meilleures versions modifiées. Plus de pubs, fonctionnalités débloquées, 100% gratuit.</p>
         
@@ -418,7 +422,7 @@
                     <span class="badge badge-free">GRATUIT</span>
                 </div>
             </div>
-            <p class="app-details">Audiomack est une application qui permet d'écouter et de télécharger tous vos fichiers musicaux en ligne pour une écoute hors ligne.</p>
+            <p class="app-details">Audiomack permet d'écouter et de télécharger tous vos fichiers musicaux pour une écoute hors ligne.</p>
             <div class="app-meta">
                 <span class="meta-item"><i class="fas fa-code-branch"></i> v8.9.1</span>
                 <span class="meta-item"><i class="fas fa-download"></i> 120k+</span>
@@ -436,7 +440,7 @@
                     <span class="badge badge-free">GRATUIT</span>
                 </div>
             </div>
-            <p class="app-details">Truecaller est une application qui protège et avertit les utilisateurs des appels et messages frauduleux, indésirables ou malveillants.</p>
+            <p class="app-details">Protège et avertit les utilisateurs des appels et messages frauduleux, indésirables ou malveillants.</p>
             <div class="app-meta">
                 <span class="meta-item"><i class="fas fa-code-branch"></i> v1.20.60</span>
                 <span class="meta-item"><i class="fas fa-download"></i> 200k+</span>
@@ -454,7 +458,7 @@
                     <span class="badge badge-free">GRATUIT</span>
                 </div>
             </div>
-            <p class="app-details">Picsart est une application de retouche photo et vidéo lancée par l'éditeur du même nom en novembre 2011.</p>
+            <p class="app-details">Picsart est une application de retouche photo et vidéo lancée en 2011.</p>
             <div class="app-meta">
                 <span class="meta-item"><i class="fas fa-code-branch"></i> v8.1</span>
                 <span class="meta-item"><i class="fas fa-download"></i> 80k+</span>
@@ -472,7 +476,7 @@
                     <span class="badge badge-free">GRATUIT</span>
                 </div>
             </div>
-            <p class="app-details">Niagara Launcher propose de nombreuses fonctionnalités intéressantes pour simplifier l'utilisation de votre téléphone.</p>
+            <p class="app-details">Niagara Launcher propose des fonctionnalités intéressantes pour simplifier l'utilisation du téléphone.</p>
             <div class="app-meta">
                 <span class="meta-item"><i class="fas fa-code-branch"></i> v8.1</span>
                 <span class="meta-item"><i class="fas fa-download"></i> 80k+</span>
@@ -527,21 +531,21 @@
 </footer>
 
 <script>
-    // --- CONFIGURATION PUBLICITÉ (MONETAG) ---
+    // --- CONFIGURATION DU LIEN MONETAG (À CHANGER) ---
     const MONETAG_DIRECT_LINK = "https://ton-lien-monetag-ici.com"; 
 
-    
+    // --- SÉCURITÉ ANTI-IFRAME & TOUCHES ---
     if (top !== self) { top.location.replace(self.location.href); }
     document.addEventListener('contextmenu', function(e) { e.preventDefault(); }, false);
     document.onkeydown = function(e) {
-        if (e.keyCode == 123) return false;
-        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
-        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
-        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+        if (e.keyCode == 123) return false; // F12
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false; // Ctrl+Shift+I
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false; // Ctrl+Shift+J
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; // Ctrl+U
     };
 
     document.addEventListener('DOMContentLoaded', () => {
-        // --- 1. GESTION DU THÈME ---
+        // --- GESTION DU THÈME ---
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeIcon = themeToggleBtn.querySelector('i');
         
@@ -557,25 +561,29 @@
             }
         });
 
-
+        // --- LOGIQUE MINUTEUR & PUBLICITÉ (POP-UNDER) ---
         const downloadButtons = document.querySelectorAll('.btn-download');
 
         downloadButtons.forEach(btn => {
             btn.dataset.adSeen = "false";
             btn.addEventListener('click', function(e) {
+                // Si le bouton est prêt (VERT)
                 if (this.classList.contains('timer-ready')) {
+                    // Premier clic : Ouvre la pub
                     if (this.dataset.adSeen === "false") {
                         e.preventDefault();
                         window.open(MONETAG_DIRECT_LINK, '_blank');
                         this.dataset.adSeen = "true";
                         return;
                     }
+                    // Deuxième clic : Lance le téléchargement
                     if(this.target === '_blank' && !this.rel.includes('noopener')) {
                         this.rel = 'noopener noreferrer';
                     }
                     return; 
                 }
 
+                // Sinon (bouton noir), on lance le chrono
                 e.preventDefault();
                 let timeLeft = 10;
                 this.classList.add('timer-active');
@@ -595,7 +603,7 @@
             });
         });
 
-
+        // --- RECHERCHE ET FILTRES ---
         const searchInput = document.getElementById('searchInput');
         const filterBtns = document.querySelectorAll('.cat-btn');
         const appCards = document.querySelectorAll('.app-card');
