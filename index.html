@@ -6,27 +6,17 @@
     
     <script>
         (function() {
-            // --- CONFIGURATION ---
-            // REMPLACEZ CECI PAR VOTRE VRAI NOM DE DOMAINE (sans https://)
-            // Exemple : "alainmods.com" ou "monsite.vercel.app"
-            var allowedDomain = "VOTRE-SITE.COM"; 
+
+            var allowedDomain = "https://alain-mods.vercel.app/"; 
             
-            // Détection du domaine actuel
             var currentDomain = window.location.hostname;
             
-            // Logique de protection :
-            // Si le domaine actuel ne contient pas le domaine autorisé
-            // ET que ce n'est pas une page vide (pour éviter les erreurs bizarres)
-            // On autorise "localhost" pour que tu puisses tester chez toi, sinon enlève la partie && ...localhost
-            if (currentDomain.indexOf(allowedDomain) === -1 && currentDomain !== "localhost" && currentDomain !== "127.0.0.1") {
+            if (currentDomain.indexOf(allowedDomain) === -1 && currentDomain !== "%%" && currentDomain !== "127.0.0.1") {
                 
-                // On efface le contenu immédiatement
                 document.write('<style>body { background-color: white !important; color: black !important; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; font-family: sans-serif; text-align: center; } * { display: none !important; } body, body * { display: block !important; }</style>');
                 
-                // On affiche le message d'erreur
-                document.write('<div><h1>⚠️ Contenu Protégé</h1><p>Ce code appartient à <strong>ALAIN MODS</strong>.</p><p>Accédez au site officiel ici : <br><a href="https://' + allowedDomain + '" style="color:blue; font-weight:bold; font-size:1.2rem;">' + allowedDomain + '</a></p></div>');
+                document.write('<div><h1>⚠️ Contenu Protégé</h1><p>Ce code appartient à <strong>ALAIN MODS</strong>.</p><p>Accédez au site officiel ici : <br><a href="https://alain-mods.vercel.app/' + allowedDomain + '" style="color:blue; font-weight:bold; font-size:1.2rem;">' + allowedDomain + '</a></p></div>');
                 
-                // On stoppe l'exécution de tout autre script
                 window.stop();
                 throw new Error("Accès non autorisé : Domaine invalide.");
             }
@@ -40,9 +30,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        /* --- VARIABLES CSS (VARIABLES DE THÈME) --- */
+
         :root {
-            /* Thème Sombre par défaut */
+           
             --bg: #060709;
             --surface: #12141c;
             --primary: #6366f1;
@@ -57,7 +47,7 @@
             --whatsapp-dark: #128C7E;
         }
 
-        /* Thème Clair (activé via JS) */
+      
         body.light-mode {
             --bg: #f0f2f5;
             --surface: #ffffff;
@@ -67,7 +57,7 @@
             --shadow: rgba(0,0,0,0.1);
         }
 
-        /* SÉCURITÉ : Empêche la sélection de texte */
+
         body {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -127,7 +117,7 @@
 
         .hero p { color: var(--text-dim); font-size: 1rem; max-width: 600px; margin: 0 auto 30px auto; }
 
-        /* --- STYLE DES PUBLICITÉS --- */
+
         .ad-space {
             margin: 20px auto;
             text-align: center;
@@ -150,7 +140,7 @@
             letter-spacing: 1px;
         }
 
-        /* --- BARRE DE RECHERCHE --- */
+
         .search-box {
             position: relative;
             max-width: 500px;
@@ -183,7 +173,7 @@
             font-size: 1.1rem;
         }
 
-        /* --- FILTRES --- */
+       
         .categories {
             display: flex;
             justify-content: center;
@@ -251,7 +241,7 @@
         }
         .meta-item { display: flex; align-items: center; gap: 6px; }
 
-        /* --- BOUTON DE TÉLÉCHARGEMENT & MINUTEUR --- */
+
         .btn-download {
             background: var(--text);
             color: var(--bg);
@@ -292,7 +282,6 @@
             100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
 
-        /* --- SECTION WHATSAPP --- */
         .whatsapp-box {
             background: linear-gradient(135deg, var(--whatsapp-green) 0%, var(--whatsapp-dark) 100%);
             border-radius: 24px;
@@ -568,7 +557,7 @@
             }
         });
 
-        // --- 2. MINUTEUR & PUBLICITÉ MONETAG ---
+
         const downloadButtons = document.querySelectorAll('.btn-download');
 
         downloadButtons.forEach(btn => {
@@ -606,7 +595,7 @@
             });
         });
 
-        // --- 3. RECHERCHE ET FILTRES ---
+
         const searchInput = document.getElementById('searchInput');
         const filterBtns = document.querySelectorAll('.cat-btn');
         const appCards = document.querySelectorAll('.app-card');
