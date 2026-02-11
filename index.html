@@ -9,11 +9,11 @@
     <script>
         (function() {
 
-            var allowedDomain = "https://alain-mods.vercel.app/"; 
+            var allowedDomain = "alain-mods.vercel.app/"; 
             
             var currentDomain = window.location.hostname;
             
-            if (currentDomain.indexOf(allowedDomain) === -1 && currentDomain !== "localhost" && currentDomain !== "127.0.0.1") {
+            if (currentDomain.indexOf(allowedDomain) === -1 && currentDomain !== "&&" && currentDomain !== "127.0.0.1") {
                 
                 document.write('<style>body { background-color: white !important; color: black !important; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; font-family: sans-serif; text-align: center; } * { display: none !important; } body, body * { display: block !important; }</style>');
                 
